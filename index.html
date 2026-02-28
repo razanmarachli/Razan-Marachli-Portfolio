@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razan Marachli - Creative Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFF8F0;
+            --charcoal: #1a1a1a;
+            --rust: #D45D3E;
+            --sage: #8B9D83;
+            --gold: #C5A572;
+            --text-light: #4a4a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--rust);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, opacity 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--rust);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--cream) 0%, transparent 100%);
+            cursor: auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rust);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 157, 131, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 93, 62, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--rust);
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            border: 2px solid var(--rust);
+        }
+
+        .hero-cta:hover {
+            background: transparent;
+            color: var(--rust);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 93, 62, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards, float 3s ease-in-out infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--rust));
+            margin: 0 auto 1rem;
+        }
+
+        /* About Section */
+        .about {
+            min-height: 100vh;
+            padding: 8rem 4rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--rust);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+        }
+
+        .about-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-card {
+            position: absolute;
+            background: white;
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .visual-card:nth-child(1) {
+            top: 0;
+            left: 0;
+            transform: rotate(-5deg);
+            z-index: 3;
+        }
+
+        .visual-card:nth-child(2) {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%) rotate(3deg);
+            z-index: 2;
+        }
+
+        .visual-card:nth-child(3) {
+            bottom: 0;
+            left: 20%;
+            transform: rotate(-2deg);
+            z-index: 1;
+        }
+
+        .visual-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .visual-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--rust);
+        }
+
+        .visual-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 8rem 4rem;
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .projects-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 4rem;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem;
+            background: rgba(255, 248, 240, 0.05);
+            border-left: 4px solid var(--rust);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+            border-left: none;
+            border-right: 4px solid var(--sage);
+        }
+
+        .project-card:nth-child(even) .project-content {
+            order: 2;
+        }
+
+        .project-card:nth-child(even) .project-visual {
+            order: 1;
+        }
+
+        .project-card:hover {
+            background: rgba(255, 248, 240, 0.08);
+            transform: translateX(10px);
+        }
+
+        .project-card:nth-child(even):hover {
+            transform: translateX(-10px);
+        }
+
+        .project-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .project-role {
+            font-size: 1.1rem;
+            color: var(--rust);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 248, 240, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--cream);
+            text-decoration: none;
+            border: 2px solid var(--cream);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .project-link:hover {
+            background: var(--cream);
+            color: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 248, 240, 0.3);
+        }
+
+        .project-visual {
+            height: 300px;
+            background: linear-gradient(135deg, var(--rust), var(--sage));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .project-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover .project-visual::before {
+            left: 100%;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 8rem 4rem;
+            background: white;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--rust), var(--sage));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--rust);
+            border: 4px solid white;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 8px rgba(212, 93, 62, 0.1);
+        }
+
+        .timeline-content {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .timeline-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .timeline-content .role {
+            color: var(--rust);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 4rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .contact p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 248, 240, 0.8);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 1.2rem 3rem;
+            background: transparent;
+            color: var(--cream);
+            text-decoration: none;
+            border: 2px solid var(--cream);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--cream);
+            color: var(--charcoal);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 4rem;
+            background: var(--charcoal);
+            color: rgba(255, 248, 240, 0.6);
+            text-align: center;
+            border-top: 1px solid rgba(255, 248, 240, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .about-visual {
+                height: 400px;
+            }
+
+            .project-card,
+            .project-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-card:nth-child(even) .project-content,
+            .project-card:nth-child(even) .project-visual {
+                order: unset;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                grid-column: 1;
+                text-align: left;
+                margin-left: 2rem;
+            }
+
+            .timeline-dot {
+                left: 0;
+                transform: translateX(0);
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .cursor, .cursor-dot {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">RM</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">RAZAN<br>MARACHLI</h1>
+            <p class="hero-subtitle">Canadian Storyteller & Media Specialist<br>Creating Impactful Creative Projects</p>
+            <a href="#projects" class="hero-cta">View My Work</a>
+        </div>
+        <div class="scroll-indicator">Scroll</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text reveal">
+                <h2>Crafting Stories<br>That Matter</h2>
+                <p>I'm a passionate media specialist with a degree from Toronto Metropolitan University's prestigious media production program. My work spans podcasting, documentary filmmaking, sound editing, and interactive media.</p>
+                <p>I believe in the power of storytelling to inspire, educate, and connect communities. Whether it's sharing athletes' journeys or exploring mental health through audio, I'm dedicated to creating content that resonates.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">4+</span>
+                        <span class="stat-label">Major Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">TMU</span>
+                        <span class="stat-label">Graduate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Creative Ideas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual reveal">
+                <div class="visual-card">
+                    <h3>🎙️ Audio</h3>
+                    <p>Podcast production, sound editing, and audio storytelling</p>
+                </div>
+                <div class="visual-card">
+                    <h3>🎬 Video</h3>
+                    <p>Documentary production and interactive film experiences</p>
+                </div>
+                <div class="visual-card">
+                    <h3>✍️ Writing</h3>
+                    <p>Script writing and narrative development</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <div class="project-content">
+                    <div class="project-number">01 / Podcast</div>
+                    <h3 class="project-title">Let's Move Canada</h3>
+                    <p class="project-role">Podcast Coordinator & Script Writer</p>
+                    <p class="project-description">A podcast dedicated to sharing the incredible stories of Canadian athletes and health and wellness advocates. Coordinated production and crafted compelling narratives that brought these inspiring journeys to life.</p>
+                    <a href="https://www.youtube.com/@LetsMoveCanada" class="project-link" target="_blank">View Project →</a>
+                </div>
+                <div class="project-visual"><img src="assets/thumbnails/lets-move-canada.jpg" alt="Let's Move Canada thumbnail" loading="lazy"></div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-content">
+                    <div class="project-number">02 / Interactive Film</div>
+                    <h3 class="project-title">Get Together</h3>
+                    <p class="project-role">Sound Editor @ The Sound House</p>
+                    <p class="project-description">An interactive party film where viewers make choices that determine the outcome of the night. Designed and implemented the complete soundscape to enhance the immersive, choice-driven experience.</p>
+                    <a href="https://video.eko.com/v/Mx6WRD?autoplay=true&fbclid=PAAabkE-iVsiFeP6_I2AixxPqmCRdWc7xg4JkYSUfrspc4UGotj6G6WbLvs8Q" class="project-link" target="_blank">View Project →</a>
+                </div>
+                <div class="project-visual"><img src="assets/thumbnails/get-together.png" alt="Get Together thumbnail" loading="lazy"></div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-content">
+                    <div class="project-number">03 / Mental Health</div>
+                    <h3 class="project-title">The Art of Staying Positive</h3>
+                    <p class="project-role">Producer & Sound Editor</p>
+                    <p class="project-description">A mental health awareness podcast focused on positive psychology to help listeners navigate and cope with emotions. Produced and edited episodes that made complex psychological concepts accessible and actionable.</p>
+                    <a href="https://spiritlive.ca/podcasts-f2021/the-art-of-staying-positive/" class="project-link" target="_blank">View Project →</a>
+                </div>
+                <div class="project-visual"><img src="assets/thumbnails/art-of-staying-positive.jpg" alt="The Art of Staying Positive thumbnail" loading="lazy"></div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-content">
+                    <div class="project-number">04 / Documentary</div>
+                    <h3 class="project-title">Analogue Revolution</h3>
+                    <p class="project-role">Production Crew</p>
+                    <p class="project-description">How Feminist Media Changed the World (2023) - Worked as part of the production crew on this impactful documentary exploring the transformative power of feminist media throughout history.</p>
+                    <a href="https://analoguerevolution.ca/" class="project-link" target="_blank">View Project →</a>
+                </div>
+                <div class="project-visual"><img src="assets/thumbnails/analogue-revolution.jpg" alt="Analogue Revolution thumbnail" loading="lazy"></div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-content">
+                    <div class="project-number">05 / Co-Production</div>
+                    <h3 class="project-title">HALM & Co. Podcasts</h3>
+                    <p class="project-role">Co-Producer</p>
+                    <p class="project-description">Co-produced multiple podcast episodes during my time at HALM & Co., collaborating closely with hosts to create engaging audio content that resonated with diverse audiences.</p>
+                    <a href="https://www.youtube.com/watch?list=PLxaiFCWufV9WpP6hgIiXRAv99YxrOCKpZ&v=y26geM5kQ1I&feature=youtu.be" class="project-link" target="_blank">View Project →</a>
+                </div>
+                <div class="project-visual"><img src="assets/thumbnails/halm.jpg" alt="HALM & Co. Podcasts thumbnail" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <h2 class="section-title">Experience & Skills</h2>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Toronto Metropolitan University</h3>
+                    <p class="role">Media Production Program Graduate</p>
+                    <p>Completed prestigious media production program, gaining comprehensive expertise in audio production, video editing, storytelling, and creative project management.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>The Sound House</h3>
+                    <p class="role">Sound Editor</p>
+                    <p>Worked on interactive media projects, specializing in creating immersive audio experiences for innovative storytelling formats.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>HALM & Co.</h3>
+                    <p class="role">Podcast Co-Producer</p>
+                    <p>Collaborated with hosts to produce engaging podcast content, managing production workflows and ensuring high-quality audio output.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Core Competencies</h3>
+                    <p class="role">Media Specialist</p>
+                    <p>Podcast Production • Sound Editing • Script Writing • Documentary Filmmaking • Interactive Media • Audio Storytelling • Project Coordination • Creative Direction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Let's Create<br>Something Amazing</h2>
+        <p>I'm always open to new opportunities and collaborations.<br>Let's bring your story to life.</p>
+        <div class="contact-links">
+            <a href="mailto:hello@yourdomain.com" class="contact-link">Email Me</a>
+            <a href="https://www.linkedin.com/in/razanmarachli/" class="contact-link" target="_blank">LinkedIn</a>
+            <a href="https://github.com/yourusername" class="contact-link" target="_blank">GitHub</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Razan Marachli. Crafted with passion and purpose.</p>
+    </footer>
+
+<script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        // Hide custom cursor on touch devices / coarse pointers
+        const prefersCoarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+        if (prefersCoarsePointer) {
+            if (cursor) cursor.style.display = 'none';
+            if (cursorDot) cursorDot.style.display = 'none';
+            document.body.style.cursor = 'auto';
+        } else {
+            document.addEventListener('mousemove', (e) => {
+                if (!cursor || !cursorDot) return;
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+
+            // Cursor hover effects
+            const hoverElements = document.querySelectorAll('a, button, .project-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursor.style.opacity = '0.5';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursor.style.opacity = '1';
+                });
+            });
+        }
+
+        // Smooth scrolling for in-page anchors only
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        checkReveal(); // Check on load
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset || 0;
+            const hero = document.querySelector('.hero-content');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = String(Math.max(0, 1 - (scrolled / 700)));
+            }
+        }, { passive: true });
+
+        // Project card interactions: click anywhere on the card opens its primary link
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('click', (event) => {
+                const link = card.querySelector('.project-link');
+                const clickedLink = event.target && event.target.closest && event.target.closest('a');
+
+                // If user clicked a link inside the card, let the browser handle it.
+                if (clickedLink) return;
+
+                if (link && link.href) {
+                    window.open(link.href, link.target || '_blank', 'noopener');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
