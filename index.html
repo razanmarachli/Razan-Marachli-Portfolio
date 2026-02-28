@@ -711,6 +711,132 @@
             }
         }
     </style>
+
+    <style>
+        /* Gallery Section (added) */
+        .gallery {
+            padding: 8rem 4rem;
+            background: var(--cream);
+            color: var(--charcoal);
+            text-align: center;
+        }
+
+        .gallery-subtitle {
+            max-width: 900px;
+            margin: -2rem auto 3rem;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.25rem;
+        }
+
+        .gallery-item {
+            border: 0;
+            padding: 0;
+            background: transparent;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px rgba(0,0,0,0.12);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+        }
+
+        /* Mosaic layout */
+        .gallery-item:nth-child(1) { grid-column: span 6; }
+        .gallery-item:nth-child(2) { grid-column: span 3; }
+        .gallery-item:nth-child(3) { grid-column: span 3; }
+        .gallery-item:nth-child(4) { grid-column: span 4; }
+        .gallery-item:nth-child(5) { grid-column: span 4; }
+        .gallery-item:nth-child(6) { grid-column: span 4; }
+        .gallery-item:nth-child(7) { grid-column: span 12; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            display: none;
+            z-index: 2000;
+        }
+
+        .lightbox.open {
+            display: block;
+        }
+
+        .lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .lightbox-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox-image {
+            max-width: min(1100px, 92vw);
+            max-height: 82vh;
+            border-radius: 6px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+            background: #000;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+            color: white;
+            font-size: 28px;
+            line-height: 44px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 968px) {
+            .gallery { padding: 6rem 2rem; }
+            .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+            .gallery-item:nth-child(1) { grid-column: span 6; }
+            .gallery-item:nth-child(2),
+            .gallery-item:nth-child(3),
+            .gallery-item:nth-child(4),
+            .gallery-item:nth-child(5),
+            .gallery-item:nth-child(6) { grid-column: span 3; }
+            .gallery-item:nth-child(7) { grid-column: span 6; }
+        }
+    </style>
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -829,9 +955,9 @@
             <div class="project-card reveal">
                 <div class="project-content">
                     <div class="project-number">05 / Co-Production</div>
-                    <h3 class="project-title">HALM & Co. Podcasts</h3>
+                    <h3 class="project-title">Steps I Took Podcast</h3>
                     <p class="project-role">Co-Producer</p>
-                    <p class="project-description">Co-produced multiple podcast episodes during my time at HALM & Co., collaborating closely with hosts to create engaging audio content that resonated with diverse audiences.</p>
+                    <p class="project-description">Co-produced multiple podcast episodes, collaborating closely with hosts to create engaging audio content that resonated with diverse audiences.</p>
                     <a href="https://www.youtube.com/watch?list=PLxaiFCWufV9WpP6hgIiXRAv99YxrOCKpZ&v=y26geM5kQ1I&feature=youtu.be" class="project-link" target="_blank">View Project →</a>
                 </div>
                 <div class="project-visual"><img src="assets/thumbnails/halm.jpg" alt="HALM & Co. Podcasts thumbnail" loading="lazy"></div>
@@ -839,46 +965,86 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <h2 class="section-title">Experience & Skills</h2>
-        <div class="timeline">
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h3>Toronto Metropolitan University</h3>
-                    <p class="role">Media Production Program Graduate</p>
-                    <p>Completed prestigious media production program, gaining comprehensive expertise in audio production, video editing, storytelling, and creative project management.</p>
-                </div>
-            </div>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h3>The Sound House</h3>
-                    <p class="role">Sound Editor</p>
-                    <p>Worked on interactive media projects, specializing in creating immersive audio experiences for innovative storytelling formats.</p>
-                </div>
-            </div>
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">Work Examples</h2>
+        <p class="gallery-subtitle">A small selection of photography and visual work. Click to view.</p>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h3>HALM & Co.</h3>
-                    <p class="role">Podcast Co-Producer</p>
-                    <p>Collaborated with hosts to produce engaging podcast content, managing production workflows and ensuring high-quality audio output.</p>
-                </div>
-            </div>
+        <div class="gallery-grid">
+            <button class="gallery-item" type="button" data-full="assets/gallery/MB-11.jpg" aria-label="Open image 1">
+                <img src="assets/gallery/MB-11.jpg" alt="Work example photo 1" loading="lazy">
+            </button>
+            
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2375.jpg" aria-label="Open image 2">
+                <img src="assets/gallery/0L1A2375.jpg" alt="Work example photo 2" loading="lazy">
+            </button>
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2392.jpg" aria-label="Open image 3">
+                <img src="assets/gallery/0L1A2392.jpg" alt="Work example photo 3" loading="lazy">
+            </button>
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2398.jpg" aria-label="Open image 4">
+                <img src="assets/gallery/0L1A2398.jpg" alt="Work example photo 4" loading="lazy">
+            </button>
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2562.jpg" aria-label="Open image 5">
+                <img src="assets/gallery/0L1A2562.jpg" alt="Work example photo 5" loading="lazy">
+            </button>
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2574.jpg" aria-label="Open image 6">
+                <img src="assets/gallery/0L1A2574.jpg" alt="Work example photo 6" loading="lazy">
+            </button>
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2590.jpg" aria-label="Open image 7">
+                <img src="assets/gallery/0L1A2590.jpg" alt="Work example photo 7" loading="lazy">
+            </button>
+        </div>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h3>Core Competencies</h3>
-                    <p class="role">Media Specialist</p>
-                    <p>• Podcast Production • Sound Editing • Script Writing • Documentary Filmmaking • Interactive Media • Audio Storytelling • Project Coordination • Creative Direction</p>
-                </div>
+        <!-- Lightbox -->
+        <div class="lightbox" aria-hidden="true">
+            <div class="lightbox-backdrop"></div>
+            <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview">
+                <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+                <img class="lightbox-image" src="" alt="">
             </div>
         </div>
+    </section>
+
+<!-- Experience Section -->
+<section id="experience" class="experience">
+  <h2 class="section-title">Experience & Skills</h2>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Toronto Metropolitan University</h3>
+        <p class="role">Media Production Program Graduate</p>
+        <p>Completed prestigious media production program, gaining comprehensive expertise in audio production, video editing, storytelling, and creative project management.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Free For All Community Services</h3>
+        <p class="role">Social Media Marketing Consultant</p>
+        <p>Supported social media strategy and content planning to strengthen brand messaging, audience engagement, and campaign execution.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Canadian Health & Fitness Institute</h3>
+        <p class="role">Podcast Coordinator & Producer</p>
+        <p>Coordinated 10+ podcast episodes across timelines, stakeholders, and publishing workflows to improve clarity and discoverability.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>The Sound House</h3>
+        <p class="role">Sound Editor</p>
+        <p>Worked on interactive media projects, specializing in creating immersive audio experiences for innovative storytelling formats.</p>
+      </div>
+    </div>
     </section>
 
     <!-- Contact Section -->
@@ -983,5 +1149,50 @@
             });
         });
     </script>
+
+<script>
+    // Gallery Lightbox (added)
+    (function () {
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-image');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const backdrop = document.querySelector('.lightbox-backdrop');
+        const items = document.querySelectorAll('.gallery-item');
+
+        if (!lightbox || !lightboxImg || !closeBtn || !backdrop || !items.length) return;
+
+        function openLightbox(src, alt) {
+            lightboxImg.src = src;
+            lightboxImg.alt = alt || 'Gallery image';
+            lightbox.classList.add('open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            lightboxImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        items.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const src = btn.getAttribute('data-full');
+                const img = btn.querySelector('img');
+                openLightbox(src, img ? img.alt : '');
+            });
+        });
+
+        closeBtn.addEventListener('click', closeLightbox);
+        backdrop.addEventListener('click', closeLightbox);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+                closeLightbox();
+            }
+        });
+    })();
+</script>
 </body>
 </html>
