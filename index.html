@@ -713,64 +713,199 @@
     </style>
 
     <style>
-        /* Gallery Section (added) */
-        .gallery {
-            padding: 8rem 4rem;
-            background: var(--cream);
-            color: var(--charcoal);
-            text-align: center;
-        }
+       /* Gallery Section (added) */
+.gallery {
+    padding: 8rem 4rem;
+    background: var(--cream);
+    color: var(--charcoal);
+    text-align: center;
+}
 
-        .gallery-subtitle {
-            max-width: 900px;
-            margin: -2rem auto 3rem;
-            color: var(--text-light);
-            font-size: 1.15rem;
-            line-height: 1.8;
-        }
+.gallery-subtitle {
+    max-width: 900px;
+    margin: -2rem auto 3rem;
+    color: var(--text-light);
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
 
-        .gallery-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.25rem;
-        }
+.gallery-subsection {
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
 
-        .gallery-item {
-            border: 0;
-            padding: 0;
-            background: transparent;
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
+.gallery-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+    text-align: center;
+}
 
-        .gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 45px rgba(0,0,0,0.12);
-        }
+.gallery-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-            aspect-ratio: 4 / 3;
-        }
+.gallery-item {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
 
-        /* Mosaic layout */
-        .gallery-item:nth-child(1) { grid-column: span 6; }
-        .gallery-item:nth-child(2) { grid-column: span 3; }
-        .gallery-item:nth-child(3) { grid-column: span 3; }
-        .gallery-item:nth-child(4) { grid-column: span 4; }
-        .gallery-item:nth-child(5) { grid-column: span 4; }
-        .gallery-item:nth-child(6) { grid-column: span 4; }
-        .gallery-item:nth-child(7) { grid-column: span 12; }
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 45px rgba(0,0,0,0.12);
+}
 
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+/* Photography mosaic layout */
+.gallery-grid .gallery-item:nth-child(1) { grid-column: span 6; }
+.gallery-grid .gallery-item:nth-child(2) { grid-column: span 3; }
+.gallery-grid .gallery-item:nth-child(3) { grid-column: span 3; }
+.gallery-grid .gallery-item:nth-child(4) { grid-column: span 4; }
+.gallery-grid .gallery-item:nth-child(5) { grid-column: span 4; }
+.gallery-grid .gallery-item:nth-child(6) { grid-column: span 4; }
+.gallery-grid .gallery-item:nth-child(7) { grid-column: span 12; }
+.graphics-grid .gallery-item:nth-child(1) { grid-column: span 6; }
+.graphics-grid .gallery-item:nth-child(2) { grid-column: span 3; }
+.graphics-grid .gallery-item:nth-child(3) { grid-column: span 3; }
+.graphics-grid .gallery-item:nth-child(4) { grid-column: span 4; }
+.graphics-grid .gallery-item:nth-child(5) { grid-column: span 4; }
+.graphics-grid .gallery-item:nth-child(6) { grid-column: span 4; }
+.graphics-grid .gallery-item:nth-child(7) { grid-column: span 6; }
+
+/* Graphics layout */
+.graphics-grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+}
+
+.graphics-grid .gallery-item {
+    grid-column: span 4;
+}
+
+.graphics-grid .gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    aspect-ratio: auto;
+    background: #f4efe8;
+}
+
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 2000;
+}
+
+.lightbox.open {
+    display: block;
+}
+
+.lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+}
+
+.lightbox-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.lightbox-image {
+    max-width: min(1100px, 92vw);
+    max-height: 82vh;
+    border-radius: 6px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+    background: #000;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    font-size: 28px;
+    line-height: 44px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.lightbox-close:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+@media (max-width: 968px) {
+    .gallery {
+        padding: 6rem 2rem;
+    }
+
+    .gallery-heading {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .gallery-subsection {
+        margin-bottom: 3rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .gallery-grid .gallery-item:nth-child(1) {
+        grid-column: span 6;
+    }
+
+    .gallery-grid .gallery-item:nth-child(2),
+    .gallery-grid .gallery-item:nth-child(3),
+    .gallery-grid .gallery-item:nth-child(4),
+    .gallery-grid .gallery-item:nth-child(5),
+    .gallery-grid .gallery-item:nth-child(6) {
+        grid-column: span 3;
+    }
+
+    .gallery-grid .gallery-item:nth-child(7) {
+        grid-column: span 6;
+    }
+
+    .graphics-grid .gallery-item {
+        grid-column: span 3;
+    }
+}
         /* Lightbox */
         .lightbox {
             position: fixed;
@@ -860,7 +995,7 @@
         <div class="hero-bg"></div>
         <div class="hero-content">
             <h1 class="hero-title">RAZAN<br>MARACHLI</h1>
-            <p class="hero-subtitle">Brand Marketing & Copy Intern Candidate<br>Social-first storytelling, campaign messaging & editorial craft</p>
+            <p class="hero-subtitle">Content Design & PR Specialist Candidate<br>Visual storytelling, social media execution & brand communication</p>
             <a href="#projects" class="hero-cta">View My Work</a>
         </div>
         <div class="scroll-indicator">Scroll</div>
@@ -871,8 +1006,8 @@
         <div class="about-content">
             <div class="about-text reveal">
                 <h2>Crafting Stories<br>That Matter</h2>
-                <p>I’m a detail-oriented storyteller with a Toronto Metropolitan University media production background, now focused on brand marketing: writing, editing, and shaping clear, culturally fluent messaging across social, eCommerce, and campaign touchpoints.</p>
-                <p>I bring a strong editing eye, a fast learning curve, and a pulse on what’s trending—translating creative direction and briefs into on-brand copy, launch narratives, and content that connects with real audiences.</p>
+                <p>I’m a creative and execution-driven media professional with a background in production, social content, and storytelling. I create clear, engaging content across visual, written, and video formats, with experience supporting campaigns, social media planning, and audience-focused communication.</p>
+                <p>My work combines content design, coordination, and brand consistency — from shaping ideas and managing timelines to producing polished assets that connect with audiences. As an internationally experienced professional, I bring both local cultural awareness and the ability to collaborate effectively in international environments.</p>
                 <div class="about-stats">
                     <div class="stat">
                         <span class="stat-number">4+</span>
@@ -890,16 +1025,16 @@
             </div>
             <div class="about-visual reveal">
                 <div class="visual-card">
-                    <h3>🎙️ Audio</h3>
-                    <p>Podcast production, sound editing, and audio storytelling</p>
+                    <h3>🎨 Content Design</h3>
+                    <p>Visual storytelling for campaigns, social media, and branded communication</p>
                 </div>
                 <div class="visual-card">
-                    <h3>🎬 Video</h3>
-                    <p>Documentary production and interactive film experiences</p>
+                    <h3>🎬 Video Production</h3>
+                    <p>Shooting and editing content for events, promotions, and digital campaigns</p>
                 </div>
                 <div class="visual-card">
-                    <h3>✍️ Writing</h3>
-                    <p>Script writing and narrative development</p>
+                    <h3>📱 Social & PR</h3>
+                    <p>Content calendars, platform management, and coordination across teams and partners</p>
                 </div>
             </div>
         </div>
@@ -967,46 +1102,90 @@
     </section>
 
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <h2 class="section-title">Work Examples</h2>
-        <p class="gallery-subtitle">A small selection of photography and visual work. Click to view.</p>
+   <!-- Gallery Section -->
+<section id="gallery" class="gallery">
+    <h2 class="section-title">Work Examples</h2>
+    <p class="gallery-subtitle">A selection of photography and graphic design work. Click to view.</p>
 
+    <div class="gallery-subsection">
+        <h3 class="gallery-heading">Photography</h3>
         <div class="gallery-grid">
-            <button class="gallery-item" type="button" data-full="assets/gallery/MB-11.jpg" aria-label="Open image 1">
-                <img src="assets/gallery/MB-11.jpg" alt="Work example photo 1" loading="lazy">
+            <button class="gallery-item" type="button" data-full="assets/gallery/MB-11.jpg" aria-label="Open photography image 1">
+                <img src="assets/gallery/MB-11.jpg" alt="Photography work example 1" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2375.jpg" aria-label="Open photography image 2">
+                <img src="assets/gallery/0L1A2375.jpg" alt="Photography work example 2" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2392.jpg" aria-label="Open photography image 3">
+                <img src="assets/gallery/0L1A2392.jpg" alt="Photography work example 3" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2398.jpg" aria-label="Open photography image 4">
+                <img src="assets/gallery/0L1A2398.jpg" alt="Photography work example 4" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2562.jpg" aria-label="Open photography image 5">
+                <img src="assets/gallery/0L1A2562.jpg" alt="Photography work example 5" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2574.jpg" aria-label="Open photography image 6">
+                <img src="assets/gallery/0L1A2574.jpg" alt="Photography work example 6" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2590.jpg" aria-label="Open photography image 7">
+                <img src="assets/gallery/0L1A2590.jpg" alt="Photography work example 7" loading="lazy">
+            </button>
+        </div>
+    </div>
+
+    <div class="gallery-subsection">
+        <h3 class="gallery-heading">Graphics</h3>
+        <div class="gallery-grid graphics-grid">
+            <button class="gallery-item" type="button" data-full="assets/graphics/soundbox-productions.jpeg" aria-label="Open graphic design image 1">
+                <img src="assets/graphics/soundbox-productions.jpeg" alt="Soundbox Productions graphic" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/free-for-all-foundation.jpeg" aria-label="Open graphic design image 2">
+                <img src="assets/graphics/free-for-all-foundation.jpeg" alt="Free For All Foundation graphic" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/tmu-esports.jpeg" aria-label="Open graphic design image 3">
+                <img src="assets/graphics/tmu-esports.jpeg" alt="TMU Esports graphic" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/lets-move-canada-paddle.jpeg" aria-label="Open graphic design image 4">
+                <img src="assets/graphics/lets-move-canada-paddle.jpeg" alt="Let's Move Canada paddle" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/pivot-general-construction.jpeg" aria-label="Open graphic design image 5">
+                <img src="assets/graphics/pivot-general-construction.jpeg" alt="Pivot General Construction logo" loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/boardrooms-breakthroughs.jpeg" aria-label="Open graphic design image 6">
+                <img src="assets/graphics/boardrooms-breakthroughs.jpeg" alt="Boardrooms and Breakthroughs " loading="lazy">
+            </button>
+
+            <button class="gallery-item" type="button" data-full="assets/graphics/lets-move-canada-logo.jpeg" aria-label="Open graphic design image 7">
+                <img src="assets/graphics/lets-move-canada-logo.jpeg" alt="Let's Move Canada logo " loading="lazy">
             </button>
             
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2375.jpg" aria-label="Open image 2">
-                <img src="assets/gallery/0L1A2375.jpg" alt="Work example photo 2" loading="lazy">
-            </button>
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2392.jpg" aria-label="Open image 3">
-                <img src="assets/gallery/0L1A2392.jpg" alt="Work example photo 3" loading="lazy">
-            </button>
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2398.jpg" aria-label="Open image 4">
-                <img src="assets/gallery/0L1A2398.jpg" alt="Work example photo 4" loading="lazy">
-            </button>
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2562.jpg" aria-label="Open image 5">
-                <img src="assets/gallery/0L1A2562.jpg" alt="Work example photo 5" loading="lazy">
-            </button>
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2574.jpg" aria-label="Open image 6">
-                <img src="assets/gallery/0L1A2574.jpg" alt="Work example photo 6" loading="lazy">
-            </button>
-            <button class="gallery-item" type="button" data-full="assets/gallery/0L1A2590.jpg" aria-label="Open image 7">
-                <img src="assets/gallery/0L1A2590.jpg" alt="Work example photo 7" loading="lazy">
+            <button class="gallery-item" type="button" data-full="assets/graphics/keycaps.jpeg" aria-label="Open graphic design image 8">
+                <img src="assets/graphics/keycaps.jpeg" alt="Keycaps & Co. Logo" loading="lazy">
             </button>
         </div>
+    </div>
 
-        <!-- Lightbox -->
-        <div class="lightbox" aria-hidden="true">
-            <div class="lightbox-backdrop"></div>
-            <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview">
-                <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
-                <img class="lightbox-image" src="" alt="">
-            </div>
+    <!-- Lightbox -->
+    <div class="lightbox" aria-hidden="true">
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview">
+            <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+            <img class="lightbox-image" src="" alt="">
         </div>
-    </section>
-
+    </div>
+</section>
 <!-- Experience Section -->
 <section id="experience" class="experience">
   <h2 class="section-title">Experience</h2>
@@ -1016,7 +1195,7 @@
       <div class="timeline-content">
         <h3>Toronto Metropolitan University</h3>
         <p class="role">Media Production Program Graduate</p>
-        <p>Completed prestigious media production program, gaining comprehensive expertise in audio production, video editing, storytelling, and creative project management.</p>
+        <p>Completed prestigious media production program, gaining storytelling, video production, editing, content development, and creative project coordination skills across digital media formats.</p>
       </div>
     </div>
 
@@ -1025,7 +1204,7 @@
       <div class="timeline-content">
         <h3>Free For All Community Services</h3>
         <p class="role">Social Media Marketing Consultant</p>
-        <p>Supported social media strategy and content planning to strengthen brand messaging, audience engagement, and campaign execution.</p>
+        <p>Supported social media strategy, content planning, and audience-focused messaging to strengthen campaign execution across digital platforms.</p>
       </div>
     </div>
 
@@ -1034,7 +1213,7 @@
       <div class="timeline-content">
         <h3>Canadian Health & Fitness Institute</h3>
         <p class="role">Podcast Coordinator & Producer</p>
-        <p>Coordinated 10+ podcast episodes across timelines, stakeholders, and publishing workflows to improve clarity and discoverability.</p>
+        <p>Managed podcast production workflows, coordinated stakeholders, and refined content for clear, polished, and audience-ready publishing.</p>
       </div>
     </div>
 
@@ -1043,7 +1222,7 @@
       <div class="timeline-content">
         <h3>The Sound House</h3>
         <p class="role">Sound Editor</p>
-        <p>Worked on interactive media projects, specializing in creating immersive audio experiences for innovative storytelling formats.</p>
+        <p>Contributed to immersive media projects with a focus on storytelling, editing precision, and high-quality creative execution.</p>
       </div>
     </div>
     </section>
@@ -1060,7 +1239,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Razan Marachli. Crafted with passion and purpose.</p>
+        <p>&copy; 2026 Razan Marachli. Crafted with passion and purpose.</p>
     </footer>
 
 <script>
@@ -1169,6 +1348,7 @@
             lightbox.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
         }
+        
 
         function closeLightbox() {
             lightbox.classList.remove('open');
